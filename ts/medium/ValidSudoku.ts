@@ -8,6 +8,7 @@ class Solution {
 				seen.add(el);
 		return true;
 	}
+
 	isValidColumn(board: string[][], column: number): boolean {
 		const seen = new Set<string>();
 		for (let i = 0; i < board.length; i++) {
