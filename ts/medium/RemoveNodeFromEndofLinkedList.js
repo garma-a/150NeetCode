@@ -24,6 +24,7 @@ class Solution {
             l = l.next;
             p = p.next;
             c = c.next;
+
         }
         l.next = p.next;
         return dummy.next;
