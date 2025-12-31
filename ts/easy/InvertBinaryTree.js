@@ -14,13 +14,15 @@ class Solution {
 	 */
 	invertTree(root) {
 		if (!root) return null;
-		let right = root.right;
-		root.right = root.left;
-		root.left = right;
-		if (root.left)
-			this.invertTree(root.left)
-		if (root.right)
-			this.invertTree(root.right)
+		const q = [root];
+		while (q.length) {
+			const top = q.shift();
+			const right = top.right;
+			top.right = top.left;
+			top.left = right;
+			if (top.right) q.push(top.right);
+			if (top.left) q.push(top.left);
+		}
 		return root;
 	}
 }

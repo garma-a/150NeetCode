@@ -6,5 +6,7 @@ class Solution {
 	 */
 	searchMatrix(matrix, target) {
 
+
 	}
 }
+
