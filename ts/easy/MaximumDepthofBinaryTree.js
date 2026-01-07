@@ -1,3 +1,5 @@
+const { strictEqual } = require("assert");
+
 class TreeNode {
 	constructor(val = 0, left = null, right = null) {
 		this.val = val;
@@ -18,12 +20,13 @@ class Solution {
 		let res = 0;
 		while (stack.length) {
 			const [top, depth] = stack.pop();
-			if (top) {
-				res = Math.max(res, depth);
+			res = Math.max(res, depth);
+			if (top.left)
 				stack.push([top.left, depth + 1]);
+			if (top.right)
 				stack.push([top.right, depth + 1]);
-			}
 		}
 		return res;
+
 	}
 }
