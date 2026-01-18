@@ -15,6 +15,7 @@ struct LinkedListNode *createNode(int data) {
 }
 
 struct LinkedListNode *append(struct LinkedListNode *head, int data) {
+
   if (head == NULL) {
     return createNode(data);
   }
