@@ -21,7 +21,6 @@ class Solution {
 
       while (left < right) {
         const sum = nums[idx] + nums[left] + nums[right];
-
         if (sum > 0) {
           right--;
         } else if (sum < 0) {
