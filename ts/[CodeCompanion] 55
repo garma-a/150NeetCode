@@ -1,0 +1,54 @@
+
+
+## CodeCompanion (Copilot)
+
+Short answer: not quite — it fails LRU semantics and has a length bug.
+
+Problems in your code:
+- get() doesn't update recency. Reading a key must make it most-recently-used.
+- put() increments length even when updating an existing key (should not).
+- put() may evict when overwriting an existing key (shouldn't).
+- You don't need a separate length field; use map.size.
+
+Fixed implementation (replaces the class in your file):
+````typescript {/home/girgis/repo/learning/150LeetCode/ts/medium/LRUCache.ts}
+// ...existing code...
+class LRUCache {
+	capacity: number;
+	mp: Map<number, number>;
+	constructor(capacity: number) {
+		this.capacity = capacity;
+		this.mp = new Map();
+	}
+
+	get(key: number): number {
+		if (!this.mp.has(key)) return -1;
+		const val = this.mp.get(key)!;
+		// move to most-recent position
+		this.mp.delete(key);
+		this.mp.set(key, val);
+		return val;
+	}
+
+	put(key: number, value: number): void {
+		// if key exists, remove it so set() will move it to most-recent
+		if (this.mp.has(key)) {
+			this.mp.delete(key);
+		} else if (this.mp.size === this.capacity) {
+			// evict least-recent (first inserted)
+			const firstKey = this.mp.keys().next().value!;
+			this.mp.delete(firstKey);
+		}
+		this.mp.set(key, value);
+	}
+}
+// ...existing code...
+````
+
+This uses Map insertion order: deleting and re-setting a key moves it to the end (most recent). Complexity: O(1) amortized per operation.
+
+Next step: run the LeetCode LRUCache tests or tell me if you want unit tests added for this implementation.
+
+## Me
+
+
